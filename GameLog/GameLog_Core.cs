@@ -160,7 +160,7 @@ public static class GameLog {
         for (int i = 0; i < AllTextOBJ.Count; i++) {
             if (i == cullingException)
                 continue;
-            if (Mathf.Abs(-AllTextOBJ[i].anchoredPosition.y - ContentRect.anchoredPosition.y) < 2000)
+            if (Mathf.Abs(-AllTextOBJ[i].anchoredPosition.y - ContentRect.anchoredPosition.y) < 3000)
             {
                 //ENABLE
                 AllTextOBJ[i].gameObject.SetActive(true);
