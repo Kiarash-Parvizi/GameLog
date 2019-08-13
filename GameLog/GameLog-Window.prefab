@@ -341,8 +341,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7575873714749594838}
   - {fileID: 7655966810764103383}
+  - {fileID: 7575873714749594838}
   m_Father: {fileID: 7575952250269983652}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -759,6 +759,7 @@ MonoBehaviour:
   TextOBJ: {fileID: 7655268412893991092}
   parentOBJ: {fileID: 7654726661271144328}
   MainLogs: {fileID: 7757458608265249582}
+  logCount: {fileID: 7757978591297874538}
   Content: {fileID: 7576087295795870718}
   page2Input: {fileID: 7757583312255046340}
   String2Find_Input: {fileID: 7757716594767758984}
@@ -1549,7 +1550,7 @@ GameObject:
   - component: {fileID: 7578039915857514678}
   - component: {fileID: 7757978591297874538}
   m_Layer: 5
-  m_Name: Txt_Players
+  m_Name: Txt_LogCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1567,7 +1568,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7575645968257029744}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1837,7 +1838,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.000018699684, y: -0.000040801817}
-  m_SizeDelta: {x: 0, y: 1325.2}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &7654740683389318642
 GameObject:
@@ -2620,7 +2621,7 @@ GameObject:
   - component: {fileID: 7655966810764103377}
   - component: {fileID: 7655966810764103376}
   m_Layer: 5
-  m_Name: Txt_Players (1)
+  m_Name: Txt_Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2638,7 +2639,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7575645968257029744}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}

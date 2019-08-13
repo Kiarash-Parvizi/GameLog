@@ -8,7 +8,7 @@ public class GameLog_Core : MonoBehaviour {
 
     public GameObject TextOBJ;
     public GameObject parentOBJ;
-    public Text MainLogs;
+    public Text MainLogs, logCount;
     public RectTransform Content;
 
     void Start() {
@@ -25,8 +25,10 @@ public class GameLog_Core : MonoBehaviour {
         }
         GameLog.Core();
         a++;
-        if (a > 10) {
+        if (a > 3) {
             GameLog.CULLING();
+            GameLog.setContentRectSize();
+            GameLog.setLogCount();
             a = 0;
         }
     }
@@ -89,11 +91,34 @@ public static class GameLog {
 
     static bool firstCloneCommand = true;
     static bool hadBadByte = false;
-    static float yPluss = 0;
     static int lineCounter = 0, textIndex = 0;
     static int counter = 0, lastIndex = 0;
     public static void Core() {
         for (int i = lastIndex; i < messages.Count; i++) {
+            // Creating A New Text GameObject
+            if (lineCounter > 10)
+            {
+                if (firstCloneCommand)
+                {
+                    GameLog_Core.wait = 1;
+                    firstCloneCommand = false;
+                    return;
+                }
+                textIndex++;
+                cullingException = textIndex;
+                //
+                //
+                //
+                var obj = GameObject.Instantiate(data.TextOBJ, data.parentOBJ.transform); obj.SetActive(true);
+                RectTrans = obj.GetComponent<RectTransform>();
+                AllTextOBJ.Add(RectTrans);
+                RectTrans.anchoredPosition = new Vector2(RectTrans.anchoredPosition.x, calculateNewRectPos());
+                data.MainLogs = obj.GetComponent<Text>();
+
+                data.MainLogs.text = "";
+                lineCounter = 0;
+                firstCloneCommand = true;
+            }
             //LOG
             string message = "";
             for (int a = 0; a < messages[i].b.Length; a++) {
@@ -124,30 +149,6 @@ public static class GameLog {
             counter++;
             lastIndex++;
             lineCounter++;
-            if (lineCounter > 10)
-            {
-                if (firstCloneCommand) {
-                    GameLog_Core.wait = 5;
-                    firstCloneCommand = false;
-                    return;
-                }
-                textIndex++;
-                cullingException = textIndex;
-                yPluss += RectTrans.sizeDelta.y+10;
-                //if (firstSec) {
-                //    yPluss += RectTrans.sizeDelta.y / 2;
-                //    firstSec = false;
-                //}
-                var obj = GameObject.Instantiate(data.TextOBJ, data.parentOBJ.transform); obj.SetActive(true);
-                ContentRect.sizeDelta = new Vector2(ContentRect.sizeDelta.x, yPluss*2.5f);
-                RectTrans = obj.GetComponent<RectTransform>();
-                AllTextOBJ.Add(RectTrans);
-                RectTrans.anchoredPosition = new Vector2(RectTrans.anchoredPosition.x, RectTrans.anchoredPosition.y - yPluss*1.4f);
-                data.MainLogs = obj.GetComponent<Text>();
-                data.MainLogs.text = "";
-                lineCounter = 0;
-                firstCloneCommand = true;
-            }
         }
         
     }
@@ -159,7 +160,7 @@ public static class GameLog {
         for (int i = 0; i < AllTextOBJ.Count; i++) {
             if (i == cullingException)
                 continue;
-            if (Mathf.Abs(-AllTextOBJ[i].anchoredPosition.y - ContentRect.anchoredPosition.y) < 1100)
+            if (Mathf.Abs(-AllTextOBJ[i].anchoredPosition.y - ContentRect.anchoredPosition.y) < 2000)
             {
                 //ENABLE
                 AllTextOBJ[i].gameObject.SetActive(true);
@@ -171,6 +172,24 @@ public static class GameLog {
     }
 
     //-------------------------------------------------------------
+
+    public static void setContentRectSize() {
+        var temp = AllTextOBJ[AllTextOBJ.Count - 1];
+        ContentRect.sizeDelta = new Vector2(ContentRect.sizeDelta.x, -(temp.anchoredPosition.y) + temp.sizeDelta.y + 80);
+    }
+
+    static int logCount = 0;
+    public static void setLogCount() {
+        if (logCount != messages.Count) {
+            logCount = messages.Count;
+            data.logCount.text = "LogCount: " + logCount;
+        }
+    }
+
+    static float calculateNewRectPos() {
+        var temp = AllTextOBJ[AllTextOBJ.Count - 2];
+        return (temp.anchoredPosition.y) - temp.sizeDelta.y;
+    }
 
     public static string ToRGBHex(Color c) {
         return string.Format("#{0:X2}{1:X2}{2:X2}", ToByte(c.r), ToByte(c.g), ToByte(c.b));
