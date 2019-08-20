@@ -7,7 +7,6 @@ using UnityEngine;
 public class GameLog_Core : MonoBehaviour {
 
     public GameObject TextOBJ;
-    public GameObject parentOBJ;
     public Text MainLogs, logCount;
     public RectTransform Content;
 
@@ -55,7 +54,13 @@ public class GameLog_Core : MonoBehaviour {
         Search.Find();
     }
     //--------------------------------
-
+    int i;
+    public void CLS() {
+        for (i = 1; i < GameLog.AllTextOBJ.Count; i++) { Destroy(GameLog.AllTextOBJ[i].gameObject); }
+        Content.sizeDelta = new Vector2(Content.sizeDelta.x, 0); Content.anchoredPosition = new Vector2(Content.anchoredPosition.x, 0);
+        GameLog.INIT();
+    }
+    //--------------------------------
     bool b;
     public GameObject Page2;
     public void open_InputPage() {
@@ -75,9 +80,15 @@ public static class GameLog {
     static RectTransform RectTrans;
     static RectTransform ContentRect;
     public static void INIT() {
-        RectTrans = data.MainLogs.GetComponent<RectTransform>();
+        RectTrans = data.TextOBJ.GetComponent<RectTransform>();
+        data.MainLogs = data.TextOBJ.GetComponent<Text>(); data.MainLogs.text = "";
         ContentRect = data.Content;
-        AllTextOBJ.Add(RectTrans);
+        cullingException = -1;
+        AllTextOBJ.Clear(); AllTextOBJ.Add(RectTrans);
+
+        //Side
+        lineCounter = 0; textIndex = 0; counter = 0; lastIndex = 0; hadBadByte = false; firstCloneCommand = true;
+        messages.Clear();
     }
 
     public static List<RectTransform> AllTextOBJ = new List<RectTransform>();
@@ -109,7 +120,7 @@ public static class GameLog {
                 //
                 //
                 //
-                var obj = GameObject.Instantiate(data.TextOBJ, data.parentOBJ.transform); obj.SetActive(true);
+                var obj = GameObject.Instantiate(data.TextOBJ, data.Content); obj.SetActive(true);
                 RectTrans = obj.GetComponent<RectTransform>();
                 AllTextOBJ.Add(RectTrans);
                 RectTrans.anchoredPosition = new Vector2(RectTrans.anchoredPosition.x, calculateNewRectPos());
@@ -155,9 +166,9 @@ public static class GameLog {
 
     //-------------------------------------------------------------
 
-    static int cullingException = -1;
+    static int cullingException = -1; static int i;
     public static void CULLING() {
-        for (int i = 0; i < AllTextOBJ.Count; i++) {
+        for (i = 0; i < AllTextOBJ.Count; i++) {
             if (i == cullingException)
                 continue;
             if (Mathf.Abs(-AllTextOBJ[i].anchoredPosition.y - ContentRect.anchoredPosition.y) < 3000)
