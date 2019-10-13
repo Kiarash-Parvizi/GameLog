@@ -10,7 +10,7 @@ public class GameLog_Core : MonoBehaviour {
     public Text MainLogs, logCount;
     public RectTransform Content;
 
-    void Start() {
+    void Awake() {
         DontDestroyOnLoad(this.gameObject);
         GameLog.data = this;
         GameLog.INIT();
