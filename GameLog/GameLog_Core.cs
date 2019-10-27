@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameLog_Core : MonoBehaviour {
 
+    public Text Txt_Title;
     public GameObject TextOBJ;
     public Text MainLogs, logCount;
     public RectTransform Content;
@@ -24,10 +25,17 @@ public class GameLog_Core : MonoBehaviour {
         }
         GameLog.Core();
         a++;
-        if (a > 3) {
+        if (a == 10) {
             GameLog.CULLING();
             GameLog.setContentRectSize();
             GameLog.setLogCount();
+
+            // Responsive Design :)
+            if ((float)Screen.width/(float)Screen.height < 1) {
+                Txt_Title.enabled = false;
+                logCount.enabled = false;
+            } else { Txt_Title.enabled = true; logCount.enabled = true; }
+
             a = 0;
         }
     }

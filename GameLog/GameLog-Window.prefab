@@ -437,6 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41ac7de50e78d479873c9be6e33118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Txt_Title: {fileID: 3882041687204293597}
   TextOBJ: {fileID: 3881055143063926201}
   MainLogs: {fileID: 3767466250555745827}
   logCount: {fileID: 3767645316937060199}
