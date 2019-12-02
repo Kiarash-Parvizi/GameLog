@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Text;
 using UnityEngine;
@@ -25,12 +24,13 @@ public class GameLog_Core : MonoBehaviour {
         }
         GameLog.Core();
         a++;
-        if (a == 10) {
+        if (a == 12) {
             GameLog.CULLING();
             GameLog.setContentRectSize();
             GameLog.setLogCount();
 
             // Responsive Design :)
+            GameLog.Recalculate_RectPos();
             if ((float)Screen.width/(float)Screen.height < 1) {
                 Txt_Title.enabled = false;
                 logCount.enabled = false;
@@ -39,7 +39,6 @@ public class GameLog_Core : MonoBehaviour {
             a = 0;
         }
     }
-
 
     //--------------------------------
     public InputField page2Input;
@@ -187,6 +186,16 @@ public static class GameLog {
             }
             //DISABLE
             AllTextOBJ[i].gameObject.SetActive(false);
+        }
+    }
+
+    //-------------------------------------------------------------
+
+    public static void Recalculate_RectPos() {
+        float v = 0;
+        foreach (RectTransform r in AllTextOBJ) {
+            r.anchoredPosition = new Vector2(r.anchoredPosition.x, v);
+            v = (r.anchoredPosition.y) - r.sizeDelta.y;
         }
     }
 
