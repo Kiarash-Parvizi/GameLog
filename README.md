@@ -10,6 +10,3 @@ GameLog.Log("Running...", UnityEngine.Color.cyan);
 ```
 ---
 
-If you like this project you can click star at the top of the page
-
-Designed By [GameChanger](https://github.com/Kiarash-Parvizi)
